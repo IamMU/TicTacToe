@@ -3,6 +3,8 @@ import prettytable
 import os
 import sys
 import time
+import itertools
+import random
 
 # VARIABLES
 data_cols = [
@@ -17,7 +19,10 @@ coor_to_num = {
     "c": "2"
 }
 
-user_symbol = "0"
+p1_done = False
+p2_done = False
+p1_symbol = "0"
+p2_symbol = "|"
 game_over = False
 
 # FUNCTIONS
@@ -58,25 +63,49 @@ def get_user_input():
             return split_input
 
 
-
 # CODE && LOGIC && FRONT-END
 print("Tic Tac Toe")
 print("Answer format: [Row][Column] => 1C")
-print(f"You are {user_symbol}.")
+print(f"Player1 is {p1_symbol}.")
+print(f"Player2 is {p2_symbol}")
 
 # Adding a delay so that the user can see the text
 time.sleep(4)
 
 while not game_over:
+    p1_done = False
+    p2_done = False
+
+    print("PLAYER 1's TURN!")
+
     draw_grid(data_cols)
 
     user_input = get_user_input()
 
     if user_input:
-        data_to_change = data_cols[int(user_input[1])][int(user_input[0])]
+        while not p1_done:
+            if data_cols[int(user_input[1])][int(user_input[0])] == "":
+                data_cols[int(user_input[1])][int(user_input[0])] = p1_symbol
+                p1_done = True
+            else:
+                print("You can't change this cell!")
+                time.sleep(2)
 
-        if data_to_change == "":
-            data_to_change = user_symbol
-        else:
-            print("You can't change this cell!")
-            time.sleep(2)
+    draw_grid(data_cols)
+
+    print("PLAYER 2's TURN!")
+
+    user_input = get_user_input()
+
+    if user_input:
+
+        # ADDING USER DATA
+
+        while not p2_done:
+            if data_cols[int(user_input[1])][int(user_input[0])] == "":
+                data_cols[int(user_input[1])][int(user_input[0])] = p2_symbol
+                p2_done = True
+            else:
+                print("You can't change this cell!")
+                time.sleep(2)
+
