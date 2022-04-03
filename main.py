@@ -1,3 +1,7 @@
+# Installing Packages
+import pip
+pip.main(["install", "prettytable"])
+
 # IMPORTING LIBRARIES
 import prettytable
 import os
@@ -63,7 +67,27 @@ def get_user_input():
             return split_input
 
 
+def update_data(user_i, symbol):
+    if data_cols[int(user_i[1])][int(user_i[0])] == "":
+        data_cols[int(user_i[1])][int(user_i[0])] = symbol
+        global p1_done
+        global p2_done
+
+        if symbol == p1_symbol:
+            p1_done = True
+        else:
+            p2_done = True
+    else:
+        print("You can't change this cell!")
+        time.sleep(2)
+
 # CODE && LOGIC && FRONT-END
+if sys.platform.startswith("linux"):
+    os.system("clear")
+else:
+    os.system("cls")
+
+print("THIS PROJECT CONTAINS BUGS. A LOT OF THEM")
 print("Tic Tac Toe")
 print("Answer format: [Row][Column] => 1C")
 print(f"Player1 is {p1_symbol}.")
@@ -84,12 +108,7 @@ while not game_over:
 
     if user_input:
         while not p1_done:
-            if data_cols[int(user_input[1])][int(user_input[0])] == "":
-                data_cols[int(user_input[1])][int(user_input[0])] = p1_symbol
-                p1_done = True
-            else:
-                print("You can't change this cell!")
-                time.sleep(2)
+            update_data(user_input, p1_symbol)
 
     draw_grid(data_cols)
 
@@ -102,10 +121,5 @@ while not game_over:
         # ADDING USER DATA
 
         while not p2_done:
-            if data_cols[int(user_input[1])][int(user_input[0])] == "":
-                data_cols[int(user_input[1])][int(user_input[0])] = p2_symbol
-                p2_done = True
-            else:
-                print("You can't change this cell!")
-                time.sleep(2)
+            update_data(user_input, p2_symbol)
 
