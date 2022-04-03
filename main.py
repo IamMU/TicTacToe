@@ -76,9 +76,9 @@ while not game_over:
     p1_done = False
     p2_done = False
 
-    print("PLAYER 1's TURN!")
-
     draw_grid(data_cols)
+
+    print("PLAYER 1's TURN!")
 
     user_input = get_user_input()
 
